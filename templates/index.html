@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Forecast Service</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background: linear-gradient(to right, #6a11cb, #2575fc);
+            color: white;
+            font-family: 'Arial', sans-serif;
+        }
+        .container {
+            margin-top: 50px;
+        }
+        .form-group label {
+            font-weight: bold;
+        }
+        .btn-custom {
+            background-color: #ff6f61;
+            border: none;
+        }
+        .btn-custom:hover {
+            background-color: #ff3b2f;
+        }
+        select#days {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            background-color: white;
+            color: black;
+        }
+        select#days:focus {
+            border-color: #ff6f61;
+            box-shadow: 0 0 5px rgba(255, 111, 97, 0.5);
+            outline: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="text-center"><i class="fas fa-cloud-sun"></i> Weather Forecast Service</h1>
+        <p class="text-center">Введите координаты (широта и долгота) начальной и конечной точек для получения прогноза погоды.</p>
+        <form action="/get-forecast" method="POST" class="mt-4">
+            <div class="form-group">
+                <label for="lat_st">Широта начальной точки:</label>
+                <input type="text" id="lat_st" name="lat_st" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="lon_st">Долгота начальной точки:</label>
+                <input type="text" id="lon_st" name="lon_st" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="lat_end">Широта конечной точки:</label>
+                <input type="text" id="lat_end" name="lat_end" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="lon_end">Долгота конечной точки:</label>
+                <input type="text" id="lon_end" name="lon_end" class="form-control" required>
+            </div>
+            <div id="intermediate-points-container">
+                <div class="form-group">
+                    <label for="intermediate_points">Промежуточные точки (широта, долгота):</label>
+                    <input type="text" name="intermediate_points" class="form-control">
+                </div>
+            </div>
+            <button type="button" class="btn btn-secondary" onclick="addIntermediatePoint()">Добавить промежуточную точку</button>
+            <div class="form-group mt-3">
+                <label for="days">Количество дней прогноза:</label>
+                <select id="days" name="days" class="form-control">
+                    <option value="1">1 Day</option>
+                    <option value="3">3 Days</option>
+                    <option value="7">7 Days</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-custom btn-block">Получить прогноз</button>
+        </form>
+    </div>
+    <script>
+        function addIntermediatePoint() {
+            const container = document.getElementById('intermediate-points-container');
+            const div = document.createElement('div');
+            div.className = 'form-group';
+            div.innerHTML = '<input type="text" name="intermediate_points" class="form-control mt-2">';
+            container.appendChild(div);
+        }
+    </script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
